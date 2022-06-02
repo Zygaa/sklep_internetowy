@@ -21,10 +21,29 @@
           <td>{{ $user -> name }}</td>
           <td>{{ $user -> surname }}</td>
           <td>{{ $user -> phone_number }}</td>
+          <td>
+            <button class="btn  btn-danger btn-s delete" data-user-id="{{ $user->id }}">X</button>
+          </td>
         </tr>
       @endforeach
     </tbody>
   </table>
   {{ $users->links() }}
 </div>
+@endsection
+@section('javascript')
+  $(function(){
+    $('.delete').click(function(e) {
+      $.ajax({
+        method: "DELETE",
+        url: `/users/${e.target.getAttribute('data-user-id')}`,
+      })
+      .done(function ( response ) {
+          alert("Usunięto");
+      })
+      .fail(function ( response ) {
+          alert("ERROR");
+      });
+    });
+  });
 @endsection
