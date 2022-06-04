@@ -39,11 +39,11 @@
         url: `/users/${e.target.getAttribute('data-user-id')}`,
       })
       .done(function ( response ) {
-          alert("Usunięto");
+          Swal.fire("Usunięto");
       })
       .fail(function ( response ) {
-          alert("ERROR");
+          Swal.fire("ERROR");
       });
-    });
+   });
   });
 @endsection
