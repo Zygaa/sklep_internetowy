@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('products.index', [
+          'products' => Product::paginate(10)
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+      return view('products.create');
     }
 
     /**
@@ -33,7 +37,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): Redirect
     {
         //
     }

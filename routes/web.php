@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/users/list', [UserController::class, 'index']) -> middleware('auth');
 Route::delete('/users/{id}', [UserController::class, 'destroy']) -> middleware('auth');
+Route::get('/products', [ProductController::class, 'index']) -> name('products.index') -> middleware('auth');
+Route::get('/products/create', [ProductController::class, 'create']) -> name('products.create') -> middleware('auth');
+Route::post('addproduct', [App\Http\Controllers\SaveProductController::class, 'save']) -> middleware('auth');
+Route::view('/products/index','/products/index');
