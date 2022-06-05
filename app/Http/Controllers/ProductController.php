@@ -37,18 +37,14 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-      DB::table('products')
-        ->insert([
-          'name' => $_POST['name'],
-          'description' => $_POST['description'],
-          'amount' => $_POST['amount'],
-          'price' => $_POST['price']
-        ]);
+        $product = new Product($request->all());
+        $product->image_path = $request->file('image')->store('products');
+        $product->save();
         return redirect(route('products.index'));
     }
 
