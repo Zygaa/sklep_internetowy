@@ -33,6 +33,12 @@
             <td>{{ $product -> amount }}</td>
             <td>{{ $product -> price }}</td>
             <td>
+              <a href="{{ route('products.show', $product->id) }}">
+                <button class="btn  btn-primary btn-s">P</button>
+              </a>
+              <a href="{{ route('products.edit', $product->id) }}">
+                <button class="btn  btn-success btn-s">E</button>
+              </a>
               <button class="btn  btn-danger btn-s delete" data-user-id="{{ $product->id }}">X</button>
             </td>
           </tr>
@@ -54,6 +60,7 @@
           Swal.fire("Usunięto");
       })
       .fail(function ( response ) {
+          console.log(response);
           Swal.fire("ERROR");
       });
    });

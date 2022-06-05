@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -48,29 +49,33 @@ class ProductController extends Controller
           'amount' => $_POST['amount'],
           'price' => $_POST['price']
         ]);
-          return view('products.create');
+        return redirect(route('products.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return View
      */
     public function show(Product $product)
     {
-        //
+        return view('products.show', [
+          'product' => $product
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return View
      */
-    public function edit(Product $product)
+    public function edit(Product $product):View
     {
-        //
+      return view('products.edit', [
+        'product' => $product
+      ]);
     }
 
     /**
@@ -82,17 +87,29 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->fill($request->all());
+        $product->save();
+        return redirect(route('products.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return JsonResponse
      */
     public function destroy(Product $product)
     {
-        //
+      try {
+        $product->delete();
+        return  response()->json([
+          'status' => 'success'
+        ]);
+      } catch (Exception $e) {
+          return response()->json([
+            'status'=>'error',
+            'message'=>'Wystąpił błąd'
+          ])->setStatusCode(500);
+      }
     }
 }
