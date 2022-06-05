@@ -26,5 +26,5 @@ Route::get('/users/list', [UserController::class, 'index']) -> middleware('auth'
 Route::delete('/users/{id}', [UserController::class, 'destroy']) -> middleware('auth');
 Route::get('/products', [ProductController::class, 'index']) -> name('products.index') -> middleware('auth');
 Route::get('/products/create', [ProductController::class, 'create']) -> name('products.create') -> middleware('auth');
-Route::post('addproduct', [App\Http\Controllers\SaveProductController::class, 'save']) -> middleware('auth');
-Route::view('/products/index','/products/index');
+//Route::post('/products/addproduct', [App\Http\Controllers\AddProductController::class, 'store']) -> middleware('auth');
+Route::post('/products/addproduct', [ProductController::class, 'store']) -> middleware('auth');

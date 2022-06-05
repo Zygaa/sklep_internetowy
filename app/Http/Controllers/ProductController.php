@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class ProductController extends Controller
 {
@@ -37,9 +39,16 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): Redirect
+    public function store()
     {
-        //
+      DB::table('products')
+        ->insert([
+          'name' => $_POST['name'],
+          'description' => $_POST['description'],
+          'amount' => $_POST['amount'],
+          'price' => $_POST['price']
+        ]);
+          return view('products.create');
     }
 
     /**

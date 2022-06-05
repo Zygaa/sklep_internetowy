@@ -8,7 +8,7 @@
                 <div class="card-header">Dodawanie produktów</div>
 
                 <div class="card-body">
-                    <form method="GET" action="addproduct">
+                    <form method="POST" action="addproduct">
                         @csrf
 
                         <div class="row mb-3">
