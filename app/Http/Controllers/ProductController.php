@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Exception;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -37,12 +38,12 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Request  $request
+     * @param  StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $product = new Product($request->all());
+        $product = new Product($request->validated());
         if ($request->hasFile('image')) {
           $product->image_path = $request->file('image')->store('products');
         }
@@ -79,13 +80,13 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreProductRequest  $request
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $product->fill($request->all());
+        $product->fill($request->validated());
         if ($request->hasFile('image')) {
           $product->image_path = $request->file('image')->store('products');
         }
