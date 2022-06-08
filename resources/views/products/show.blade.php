@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="description" class="col-md-4 col-form-label text-md-end">Opis</label>
+                            <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Description') }}</label>
 
                             <div class="col-md-6">
                                 <textarea id="description" maxlength="1500" class="form-control" name="description" value="{{ old('description') }}" disabled>{{ $product->description }}</textarea>
@@ -27,6 +27,21 @@
                                 <input id="amount" type="number" min ="0" class="form-control" name="amount" value="{{ $product->amount }}" disabled>
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <label for="category" class="col-md-4 col-form-label text-md-end">Kategoria</label>
+
+                            <div class="col-md-6">
+                                <select id="category" class="form-control" name="category_id" disabled>
+                                  @if($product->hasCategory())
+                                    <option>{{ $product->category->name }}</option>
+                                  @else
+                                    <option>Brak</option>
+                                  @endif
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <label for="price" class="col-md-4 col-form-label text-md-end">Cena</label>
 
