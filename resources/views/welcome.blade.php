@@ -29,6 +29,7 @@
                     <i>{{ $product->price }} zł</i>
                   </h5>
                 </div>
+                <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}"><i class="far fa-cart-plus">Dodaj do koszyka</i></button>
               </div>
             </div>
           @endforeach
@@ -101,5 +102,30 @@
         }
         return defaultImage;
       }
+    });
+
+    $('button.add-cart-button').click(function(event){
+      event.preventDefault();
+      $.ajax({
+        method: "POST",
+        url: "/",
+      })
+      .done(function(){
+        Swal.fire({
+          title:'Super!',
+          text:'Pomyślnie dodano do koszyka!',
+          icon:'success',
+          showCancelButton: true,
+          confirmButtonText:'<i class="far fa-cart-plus"></i>Przejdź do koszyka',
+          cancelButtonText:'<i class="far fa-shopping-bag"></i>Kontynuuj zakupy'
+        }).then((result)=>{
+          if(result.isConfirmed){
+            alert('OK');
+          }
+        })
+      })
+      .fail(function(){
+        Swal.fire('Coś poszło nie tak');
+      });
     });
 @endsection
