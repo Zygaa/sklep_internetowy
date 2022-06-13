@@ -61,8 +61,11 @@
 </div>
 @endsection
 @section('javascript')
-    const storagePath = '{{ asset('storage') }}/';
-    const defaultImage = '{{ $defaultImage }}';
+    const WELCOME_DATA = {
+      storagePath: '{{ asset('storage') }}/',
+      defaultImage: '{{ $defaultImage }}',
+      addToCart: '{{ url('cart') }}/'
+    };
     $(function(){
       $('a#filter-button').click(function(){
         const form = $('form.sidebar-filter').serialize();
@@ -98,9 +101,9 @@
       });
       function getImage(product){
         if(!!product.image_path){
-          return storagePath + product.image_path;
+          return WELCOME_DATA.storagePath + product.image_path;
         }
-        return defaultImage;
+        return WELCOME_DATA.defaultImage;
       }
     });
 
@@ -108,7 +111,7 @@
       event.preventDefault();
       $.ajax({
         method: "POST",
-        url: "/",
+        url: WELCOME_DATA.addToCart + $(this).data('id')
       })
       .done(function(){
         Swal.fire({
