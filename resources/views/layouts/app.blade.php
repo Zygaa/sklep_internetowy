@@ -59,6 +59,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class ="dropdown-item" href="/cart">Koszyk</a>
                                   @can('isAdmin')
                                   <a class ="dropdown-item" href="/users/list">Użytkownicy</a>
                                   <a class ="dropdown-item" href="/products">Produkty</a>

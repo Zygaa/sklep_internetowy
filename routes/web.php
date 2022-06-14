@@ -19,7 +19,7 @@ use App\Http\Controllers\CartController;
 */
 
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])->name('homepage');
 
 Auth::routes();
 
@@ -33,6 +33,6 @@ Route::get('/products/edit/{product}', [ProductController::class, 'edit']) -> na
 Route::post('/products/{product}', [ProductController::class, 'update']) -> name('products.update') -> middleware('auth');
 Route::delete('/products/{product}', [ProductController::class, 'destroy']) -> name('products.destroy') ->middleware('can:isAdmin');
 Route::get('/products/{product}', [ProductController::class, 'show']) -> name('products.show') -> middleware('auth');
-Route::get('/cart/list', [App\Http\Controllers\CartController::class, 'index'])->middleware('auth')->name('cart.index');
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->middleware('auth')->name('cart.index');
 Route::post('/cart/{product}', [App\Http\Controllers\CartController::class, 'store'])->middleware('auth')->name('cart.store');
 Route::delete('/cart/{product}', [CartController::class, 'destroy']) -> middleware('auth') ->name('cart.destroy');

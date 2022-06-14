@@ -31,7 +31,7 @@
                                                     <div class="cart_item_text">{{ $item->getSum() }}</div>
                                                 </div>
                                                 <div class="cart_info_col">
-                                                    <button class="btn btn-danger btn-sm delete" >Usuń z koszyka</button>
+                                                    <button class="btn btn-danger btn-sm delete" data-id="{{ $item->getProductId() }}">Usuń z koszyka</button>
                                                 </div>
                                             </div>
                                         </li>
@@ -44,7 +44,8 @@
                                     <div class="order_total_amount" style="float:right">{{ $cart->getSum() }}</div>
                                 </div>
                             </div>
-                            <div class="cart_buttons"> <button type="button" class="button cart_button_clear">Kontynuuj zakupy</button> <button type="button" class="button cart_button_checkout btn-primary">Zamawiam</button> </div>
+                            <div class="cart_buttons"> <button type="button" class="button cart_button_clear"><a
+                                        href="/">Kontynuuj zakupy</a></button> <button type="button" class="button cart_button_checkout btn-primary">Zamawiam</button> </div>
                         </div>
                     </div>
                 </div>
@@ -57,15 +58,11 @@
     $('.delete').click(function(e) {
     $.ajax({
     method: "DELETE",
-    url: `/products/${e.target.getAttribute('data-user-id')}`,
+    url: `/cart/${e.target.getAttribute('data-id')}`,
     })
     .done(function ( response ) {
-    Swal.fire("Usunięto");
+    location.reload();
     })
-    .fail(function ( response ) {
-    console.log(response);
-    Swal.fire("ERROR");
-    });
     });
     });
 @endsection

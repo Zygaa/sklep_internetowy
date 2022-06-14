@@ -64,7 +64,8 @@
     const WELCOME_DATA = {
       storagePath: '{{ asset('storage') }}/',
       defaultImage: '{{ $defaultImage }}',
-      addToCart: '{{ url('cart') }}/'
+      addToCart: '{{ url('cart') }}/',
+    listCart: '{{ url('cart') }}'
     };
     $(function(){
       $('a#filter-button').click(function(){
@@ -123,7 +124,8 @@
           cancelButtonText:'<i class="far fa-shopping-bag"></i>Kontynuuj zakupy'
         }).then((result)=>{
           if(result.isConfirmed){
-            alert('OK');
+              console.log(WELCOME_DATA.listCart);
+            window.location = WELCOME_DATA.listCart;
           }
         })
       })
