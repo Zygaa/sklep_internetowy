@@ -23,6 +23,13 @@ class Cart{
         return $this->items;
     }
 
+    public function getSum(): float
+    {
+        return $this->items->sum(function ($item) {
+            return $item->getSum();
+        });
+    }
+
     public function addItem(Product $product): Cart
     {
       $items = $this->items;
@@ -39,5 +46,13 @@ class Cart{
       }
       $items->add($newItem);
       return new Cart($items);
+    }
+
+    public function removeItem(Product $product): Cart
+    {
+        $items = $this->items->reject(function ($item) use ($product) {
+            return $product->id == $item->getProductId();
+        });
+        return new Cart($items);
     }
 }

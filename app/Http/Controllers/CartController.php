@@ -8,6 +8,7 @@ use App\ValueObjects\CartItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
+use Exception;
 
 
 class CartController extends Controller
@@ -19,8 +20,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        dd(Session::get('cart', new Cart()));
-        return view('home');
+        return view('cart.index',[
+            'cart' => Session::get('cart', new Cart())
+        ]);
     }
     /**
      * Store a newly created resource in storage.
@@ -35,5 +37,28 @@ class CartController extends Controller
         return response()->json([
           'status' => 'success'
         ]);
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Product  $product
+     * @return JsonResponse
+     */
+    public function destroy(Product $product)
+    {
+        try {
+            $cart = Session::get('cart', new Cart());
+            Session::put('cart', $cart->removeItem($product));
+            return  response()->json([
+                'status' => 'success'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Wystąpił błąd'
+            ])->setStatusCode(500);
+        }
     }
 }

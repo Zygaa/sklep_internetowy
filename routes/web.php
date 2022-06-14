@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -34,3 +35,4 @@ Route::delete('/products/{product}', [ProductController::class, 'destroy']) -> n
 Route::get('/products/{product}', [ProductController::class, 'show']) -> name('products.show') -> middleware('auth');
 Route::get('/cart/list', [App\Http\Controllers\CartController::class, 'index'])->middleware('auth')->name('cart.index');
 Route::post('/cart/{product}', [App\Http\Controllers\CartController::class, 'store'])->middleware('auth')->name('cart.store');
+Route::delete('/cart/{product}', [CartController::class, 'destroy']) -> middleware('auth') ->name('cart.destroy');
