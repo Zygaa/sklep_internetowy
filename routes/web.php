@@ -24,7 +24,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('homepage');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/users/list', [UserController::class, 'index']) -> middleware('can:isAdmin');
+Route::get('/users/list', [UserController::class, 'index']) -> middleware('can:isAdmin') ->name('users.index');
 Route::delete('/users/{id}', [UserController::class, 'destroy']) -> middleware('auth');
 Route::get('/products', [ProductController::class, 'index']) -> name('products.index') -> middleware('can:isAdmin');
 Route::get('/products/create', [ProductController::class, 'create']) -> name('products.create') -> middleware('auth');
@@ -36,3 +36,5 @@ Route::get('/products/{product}', [ProductController::class, 'show']) -> name('p
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->middleware('auth')->name('cart.index');
 Route::post('/cart/{product}', [App\Http\Controllers\CartController::class, 'store'])->middleware('auth')->name('cart.store');
 Route::delete('/cart/{product}', [CartController::class, 'destroy']) -> middleware('auth') ->name('cart.destroy');
+Route::get('/users/edit/{user}', [UserController::class, 'edit']) -> name('users.edit') -> middleware('auth');
+Route::post('/users/{user}', [UserController::class, 'update']) -> name('users.update') -> middleware('auth');

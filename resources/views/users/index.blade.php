@@ -22,6 +22,9 @@
           <td>{{ $user -> surname }}</td>
           <td>{{ $user -> phone_number }}</td>
           <td>
+              <a href="{{ route('users.edit', $user->id) }}">
+                  <button class="btn  btn-success btn-s">E</button>
+              </a>
             <button class="btn  btn-danger btn-s delete" data-user-id="{{ $user->id }}">X</button>
           </td>
         </tr>
