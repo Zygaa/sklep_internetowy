@@ -55,4 +55,16 @@ class Cart{
         });
         return new Cart($items);
     }
+
+    public function getQuantity(): int
+    {
+        return $this->items->sum(function ($item) {
+           return $item->getQuantity();
+        });
+    }
+
+    public function hasItems(): bool
+    {
+        return $this->items->isNotEmpty();
+    }
 }

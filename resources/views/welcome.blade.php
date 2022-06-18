@@ -21,15 +21,15 @@
                 </div>
                 <div class="card-body text-center">
                   <h4 class="card-title">
-                    <a href="product.html" class=" font-weight-bold text-dark text-uppercase small">
+
                       {{ $product->name }}
-                    </a>
+
                   </h4>
                   <h5 class="card-price small">
                     <i>{{ $product->price }} zł</i>
                   </h5>
                 </div>
-                <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}"><i class="far fa-cart-plus">Dodaj do koszyka</i></button>
+                <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}">Dodaj do koszyka</button>
               </div>
             </div>
           @endforeach
@@ -91,6 +91,7 @@
                     '                        <i>PLN ' + product.price + '</i>' +
                     '                    </h5>' +
                     '                </div>' +
+                    '               <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}">' + 'Dodaj do koszyka' + '</button>' +
                     '            </div>' +
                     '        </div>';
                 $('div#products-wrapper').append(html);

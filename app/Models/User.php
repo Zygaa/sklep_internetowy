@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return !is_null($this->address);
     }
+
+    public function orders(): HasMany
+    {
+      return $this->hasMany(Order::class);
+    }
 }

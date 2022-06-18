@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,3 +38,5 @@ Route::post('/cart/{product}', [App\Http\Controllers\CartController::class, 'sto
 Route::delete('/cart/{product}', [CartController::class, 'destroy']) -> middleware('auth') ->name('cart.destroy');
 Route::get('/users/edit/{user}', [UserController::class, 'edit']) -> name('users.edit') -> middleware('auth');
 Route::post('/users/{user}', [UserController::class, 'update']) -> name('users.update') -> middleware('auth');
+Route::get('/orders', [OrderController::class, 'index']) -> middleware('auth') -> name('orders.index');
+Route::post('/orders', [OrderController::class, 'store']) -> middleware('auth') -> name('orders.store');
